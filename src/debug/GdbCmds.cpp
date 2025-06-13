@@ -893,6 +893,12 @@ ExecResult GdbStub::Handle_v_Cont(GdbStub* stub, const u8* cmd, ssize_t len)
 		return ExecResult::Ok;
 	}
 
+	if (cmd[0] == ';')
+	{
+		cmd[0] = cmd[1];
+		cmd[1] = ' '
+	}
+
 	switch (cmd[0])
 	{
 	case 'c':
@@ -926,4 +932,3 @@ ExecResult GdbStub::Handle_Q_StartNoAckMode(GdbStub* stub, const u8* cmd, ssize_
 }
 
 }
-
