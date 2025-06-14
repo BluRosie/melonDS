@@ -886,20 +886,21 @@ ExecResult GdbStub::Handle_v_MustReplyEmpty(GdbStub* stub, const u8* cmd, ssize_
 
 ExecResult GdbStub::Handle_v_Cont(GdbStub* stub, const u8* cmd, ssize_t len)
 {
+	u8 operation = 0;
 	if (len < 1)
 	{
 		printf("insufficient length");
 		stub->RespStr("E01");
 		return ExecResult::Ok;
 	}
+	operation = cmd[0];
 
-	if (cmd[0] == ';')
+	if (operation == ';')
 	{
-		cmd[0] = cmd[1];
-		cmd[1] = ' '
+		operation = cmd[1];
 	}
 
-	switch (cmd[0])
+	switch (operation)
 	{
 	case 'c':
 		stub->RespStr("OK");
